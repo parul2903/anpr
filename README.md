@@ -6,7 +6,7 @@ Automatic Number Plate Recognition using google cloud vision API for OCR
 
 Clone the repository
 ```bash
-git clone https://github.com/WongKinYiu/yolov7
+git clone https://github.com/parul2903/anpr
 ```
 
 Create a conda or a virtual environment
