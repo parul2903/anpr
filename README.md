@@ -31,4 +31,4 @@ Run the server
 python rest-server.py
 ```
 
-## For testing the results, use Postman
+#### For testing the results, use Postman
