@@ -44,56 +44,6 @@ python rest-server.py
 1. **Enable Cloud Vision API**: Go to the [Google Cloud Console](https://console.cloud.google.com/).
 2. **Create a Service Account**: Generate a JSON key and store it securely.
 3. **Set Environment Variable**: Point to the JSON key for authentication.
-   ```bash
-   export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/service-account-key.json"
-   ```
-4. **Install Google Cloud Client Library**:
-   ```bash
-   pip install google-cloud-vision
-   ```
-
----
-
-## **ANPR Implementation Code**
-
-### **rest-server.py** (Main API Server)
-```python
-from flask import Flask, request, jsonify
-from google.cloud import vision
-import io
-import os
-
-# Initialize Flask app
-app = Flask(__name__)
-
-# Set Google Cloud credentials
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'path/to/your/service-account-key.json'
-
-# Initialize Google Cloud Vision client
-client = vision.ImageAnnotatorClient()
-
-@app.route('/anpr', methods=['POST'])
-def recognize_plate():
-    if 'file' not in request.files:
-        return jsonify({"error": "No file uploaded"}), 400
-    
-    file = request.files['file']
-    image = file.read()
-    image = vision.Image(content=image)
-    
-    # Perform OCR
-    response = client.text_detection(image=image)
-    texts = response.text_annotations
-    
-    if not texts:
-        return jsonify({"error": "No text found in image"})
-    
-    plate_number = texts[0].description.strip()
-    return jsonify({"plate_number": plate_number})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-```
 
 ---
 
@@ -127,15 +77,6 @@ if __name__ == '__main__':
 - Add a database to store number plate records for future reference.
 
 ---
-
-## **License**
-This project is licensed under the **MIT License**.
-
----
-
-### **Contributors**
-- **[Your Name]** – Developer
-- **[Contributor Name]** – Maintainer
 
 For any questions or contributions, feel free to open an issue or a pull request in the repository!
 
